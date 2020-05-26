@@ -4,13 +4,13 @@ import se.kth.iv1350.model.Discount;
 import java.util.ArrayList;
 /**
  * @author Alexander Broms
- * @version 1.0
+ * @version 1.1
  * Written 2020-05-26
  *
  * The class that handles calls to the discount database. Since the
  */
 public class DiscountDBHandler {
-    private ArrayList<Discount> validDiscounts; //We'll use an ArrayList as our dummy database.
+    private ArrayList<Discount> validDiscounts;
 
     /**
      * Searches the list for a discount that is valid for the customer with the given {@code customerID}.
@@ -33,7 +33,7 @@ public class DiscountDBHandler {
      */
     public DiscountDBHandler(){
         this.validDiscounts = new ArrayList<Discount>();
-        //add discounts that are valid
+
         validDiscounts.add(new Discount(123, 0.75)); //25% discount on sale for customer 123
         validDiscounts.add(new Discount(124, 0.80)); //20% discount on sale for customer 124
         validDiscounts.add(new Discount(125, 0.95)); // 5% discount on sale for customer 125

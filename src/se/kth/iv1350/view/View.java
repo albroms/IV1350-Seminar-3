@@ -57,7 +57,7 @@ public class View {
      */
     public void endSale(){
         Amount priceToPay = controller.endSale();
-        System.out.println("\nSale ended. Your total is " + priceToPay.getAmount() + " credits.");
+        System.out.println("\nSale ended. Your total is " + priceToPay.getValue() + " credits.");
     }
 
     /**
@@ -65,13 +65,13 @@ public class View {
      * @param payment the {@link Amount} being used to pay.
      */
     public void enterPayment(Amount payment){
-        System.out.println("Entered payment: " + payment.getAmount());
+        System.out.println("Entered payment: " + payment.getValue());
         Amount change = controller.enterPayment(payment);
-        if(change.getAmount() >= 0) {
-            System.out.println("\nPayment successful. Your change is " + change.getAmount() + " credits.");
+        if(change.getValue() >= 0) {
+            System.out.println("\nPayment successful. Your change is " + change.getValue() + " credits.");
         }
         else {
-            System.out.println("\nPayment unsuccessful. You are " + (change.getAmount() * -1) + " credits short.");
+            System.out.println("\nPayment unsuccessful. You are " + (change.getValue() * -1) + " credits short.");
         }
     }
 }

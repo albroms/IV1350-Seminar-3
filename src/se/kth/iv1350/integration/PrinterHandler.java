@@ -24,15 +24,15 @@ public class PrinterHandler {
         System.out.println(receipt.getStoreName());
         System.out.println(receipt.getStoreAddress());
         printSale(receipt.getSale());
-        System.out.println("Amount paid: " + receipt.getAmountPaid().getAmount() + " credits");
-        System.out.println("Change given: " + receipt.getChange().getAmount() + " credits");
+        System.out.println("Amount paid: " + receipt.getAmountPaid().getValue() + " credits");
+        System.out.println("Change given: " + receipt.getChange().getValue() + " credits");
     }
 
     private void printSale(Sale saleToPrint){
         System.out.println("Cashier: " + saleToPrint.getCashier());
         System.out.println("Date: " + saleToPrint.getTimeOfSale());
         printScannedItems(saleToPrint);
-        System.out.println("Total: " + saleToPrint.getTotalPrice().getAmount() + " credits, Total VAT: " + saleToPrint.getTotalVATPrice().getAmount() + " credits");
+        System.out.println("Total: " + saleToPrint.getTotalPrice().getValue() + " credits, Total VAT: " + saleToPrint.getTotalVATPrice().getValue() + " credits");
     }
 
     private void printScannedItems(Sale saleToPrint){
@@ -40,8 +40,8 @@ public class PrinterHandler {
         for(SingleItem item : itemsToPrint){
             System.out.println(
                     item.getItemDTO().getItemName() + ": " + item.getQuantity() + " pcs"
-                            + " Subtotal: " + item.getItemTotal().getAmount() + " credits,"
-                            + " VAT: " + item.calculateVAT().getAmount() + " credits"
+                            + " Subtotal: " + item.getItemTotal().getValue() + " credits,"
+                            + " VAT: " + item.calculateVAT().getValue() + " credits"
             );
         }
     }

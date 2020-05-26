@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.0
+ * @version 1.1
  * Written 2020-05-26
  */
 public class Sale {
@@ -43,7 +43,7 @@ public class Sale {
             this.scannedItems.add(newItem);
         }
         updateTotalPrice();
-        double runningTotal = this.getTotalPrice().getAmount();
+        double runningTotal = this.getTotalPrice().getValue();
         System.out.println("Scanned " + quantity + " " + item.getItemName());
         System.out.println("Running total: " + runningTotal + " credits.");
     }
@@ -53,13 +53,13 @@ public class Sale {
      * @param discount the discount to be applied
      */
     public void applyDiscount(Discount discount){
-        double priceBeforeDiscount = this.totalPrice.getAmount();
+        double priceBeforeDiscount = this.totalPrice.getValue();
         double discountToApply = discount.getDiscountFactor();
         double priceAfterDiscount = priceBeforeDiscount * discountToApply;
 
-        double roundOff = (double) Math.round(priceAfterDiscount * 100) / 100; //round off to two decimal places
+        Amount roundedPrice = new Amount(priceAfterDiscount).roundOff(priceAfterDiscount);
 
-        this.totalPrice = new Amount(roundOff);
+        this.totalPrice = roundedPrice;
     }
 
     /**
@@ -105,9 +105,9 @@ public class Sale {
     public Amount getTotalVATPrice(){
         double vAT = 0.0;
         for(SingleItem item : scannedItems){
-            vAT += (item.getItemTotal().getAmount() * item.getItemDTO().getItemVAT());
+            vAT += (item.getItemTotal().getValue() * item.getItemDTO().getItemVAT());
         }
-        return new Amount(vAT);
+        return new Amount(vAT).roundOff(vAT);
     }
 
 
@@ -132,7 +132,7 @@ public class Sale {
     private void updateTotalPrice(){
         double newTotal = 0.0; //prepare a variable for recount.
         for(SingleItem item : scannedItems){
-            newTotal += item.getItemTotal().getAmount();
+            newTotal += item.getItemTotal().getValue();
         }
         this.totalPrice = new Amount(newTotal);
     }

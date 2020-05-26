@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.0
+ * @version 1.1
  * Written 2020-05-26
  *
  * This class represents a system that communicates with a database for an inventory of items.
@@ -42,13 +42,12 @@ public class InventoryDBHandler {
      */
     public SingleItem findItem(int itemID){
         for(SingleItem item : inventory){
-            if(item.getItemID() == itemID){
-                //System.out.println(item.getItemDTO().getItemName() + " was found and will be scanned.");
+            if(itemIDsMatch(item.getItemID(), itemID)){
                 return item;
             }
         }
         System.out.println("Item not found.");
-        return null; //no matching item found
+        return null;
     }
 
     /**
@@ -66,5 +65,9 @@ public class InventoryDBHandler {
             }
         }
         System.out.println("Inventory updated.");
+    }
+
+    private boolean itemIDsMatch(int firstID, int secondID){
+        return firstID == secondID;
     }
 }

@@ -5,7 +5,7 @@ import se.kth.iv1350.integration.ExternalSystemHandler;
 import se.kth.iv1350.model.*;
 /**
  * @author Alexander Broms
- * @version 1.0
+ * @version 1.1
  * Written 2020-05-26
  *
  * The controller class which communicates with the classes in the model and the {@link ExternalSystemHandler} that
@@ -66,10 +66,10 @@ public class Controller {
     }
 
     /**
-     * Controller ends the sale.
+     * Controller ends the sale and prepares a {@link Register} to be used when paying.
      */
     public Amount endSale(){
-        this.register = new Register(1000); //controller instantiates a cash register with 1000 credits inside
+        this.register = new Register(1000);
         return this.currentSale.getTotalPrice();
     }
 

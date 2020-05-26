@@ -4,7 +4,7 @@ import se.kth.iv1350.integration.ItemDTO;
 
 /**
  * @author Alexander Broms
- * @version 1.0
+ * @version 1.1
  * Written 2020-05-26
  *
  * The class representing one or more items of a single type of {@link ItemDTO}.
@@ -22,7 +22,7 @@ public class SingleItem {
     public SingleItem(ItemDTO itemDTO, int quantity){
         this.itemDTO = itemDTO;
         this.quantity = quantity;
-        this.itemTotal = new Amount(itemDTO.getItemPrice().getAmount() * quantity);
+        this.itemTotal = new Amount(itemDTO.getItemPrice().getValue() * quantity);
     }
 
     /**
@@ -31,8 +31,8 @@ public class SingleItem {
      */
     public Amount calculateVAT(){
         double amountVAT;
-        amountVAT = itemTotal.getAmount() * itemDTO.getItemVAT();
-        return new Amount(amountVAT);
+        amountVAT = itemTotal.getValue() * itemDTO.getItemVAT();
+        return new Amount(amountVAT).roundOff(amountVAT);
     }
 
     //getters
@@ -92,6 +92,6 @@ public class SingleItem {
      * Updates the total price of the items of type {@link ItemDTO}.
      */
     public void increaseItemTotal(){
-        this.itemTotal.setAmount(this.itemDTO.getItemPrice().getAmount() * quantity);
+        this.itemTotal.setValue(this.itemDTO.getItemPrice().getValue() * quantity);
     }
 }
