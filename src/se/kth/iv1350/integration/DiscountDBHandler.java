@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * @author Alexander Broms
  * @version 1.1
- * Written 2020-05-26
+ * Written 2020-05-27
  *
  * The class that handles calls to the discount database. Since the
  */
@@ -20,11 +20,9 @@ public class DiscountDBHandler {
     public Discount getValidDiscount(int customerID){
         for(Discount discount : validDiscounts){
             if(discount.getCustomerID() == customerID){
-                System.out.println("Discount found!");
                 return discount;
             }
         }
-        System.out.println("No discount was found for customer with id: " + customerID + ".");
         return null;
     }
 

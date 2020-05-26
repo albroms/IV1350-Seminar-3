@@ -3,7 +3,7 @@ package se.kth.iv1350.model;
 /**
  * @author Alexander Broms
  * @version 1.1
- * Written 2020-05-26
+ * Written 2020-05-27
  *
  * This class has been designed so that the store name and its address are permanent and hard-coded.
  * The sale is the only attribute of the class that can be assigned from outside the class.
@@ -11,7 +11,7 @@ package se.kth.iv1350.model;
 public class Receipt {
     private final Sale sale;
     private final String storeName = "My Store";
-    private final String storeAddress = "123 Fake St.";
+    private final String storeAddress = "123 Fake St. 12345 NYC, NY, USA";
     private final Amount amountPaid;
     private final Amount change;
 

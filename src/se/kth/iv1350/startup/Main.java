@@ -8,7 +8,7 @@ import se.kth.iv1350.view.View;
 /**
  * @author Alexander Broms
  * @version 1.0
- * Written 2020-05-26
+ * Written 2020-05-27
  * The Main class.
  */
 public class Main {
@@ -26,6 +26,6 @@ public class Main {
         view.scanItem(4, 1); //scan another item
         view.requestDiscount(123);
         view.endSale();
-        view.enterPayment(new Amount(20)); //user pays
+        view.enterPayment(new Amount(5)); //user pays
     }
 }

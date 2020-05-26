@@ -2,8 +2,8 @@ package se.kth.iv1350.model;
 
 /**
  * @author Alexander Broms
- * @version 1.1
- * Written 2020-05-26
+ * @version 1.2
+ * Written 2020-05-27
  *
  * The class representing a cash register. When instantiated it is loaded with an amount of money.
  * The public interface for this class include the constructor, the {@code pay} method, and the getter
@@ -21,10 +21,14 @@ public class Register {
     }
 
     private void removeAmount(Amount amountToRemove){
-        this.moneyInRegister = new Amount(this.moneyInRegister.getValue() - amountToRemove.getValue());
+        if(amountToRemove.getValue() > 0){
+            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() - amountToRemove.getValue());
+        }
     }
     private void addAmount(Amount amountToAdd){
-        this.moneyInRegister = new Amount(this.moneyInRegister.getValue() + amountToAdd.getValue());
+        if(amountToAdd.getValue() > 0){
+            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() + amountToAdd.getValue());
+        }
     }
     private Amount calculateChange(Amount received, Amount due){
         double change = received.getValue() - due.getValue();
@@ -55,8 +59,6 @@ public class Register {
 
         addAmount(received);
         removeAmount(changeDue);
-
-        System.out.println("There is now " + getMoneyInRegister().getValue() + " credits in the cash register");
 
         return changeDue;
     }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.1
- * Written 2020-05-26
+ * @version 1.2
+ * Written 2020-05-27
  *
  * This class represents a system that communicates with a database for an inventory of items.
  * Since the data layer was omitted, the class contains an {@link ArrayList} representing the database.
@@ -46,7 +46,6 @@ public class InventoryDBHandler {
                 return item;
             }
         }
-        System.out.println("Item not found.");
         return null;
     }
 
@@ -72,7 +71,6 @@ public class InventoryDBHandler {
                 }
             }
         }
-        System.out.println("Inventory updated.");
     }
 
     private boolean itemIDsMatch(int firstID, int secondID){

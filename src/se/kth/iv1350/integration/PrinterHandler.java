@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.0
- * Written 2020-05-26
+ * @version 1.1
+ * Written 2020-05-27
  *
  * Class intended for communication with a printer. Since there is no printer to communicate with.
  * The functionality has been included in this class.
@@ -31,6 +31,7 @@ public class PrinterHandler {
     private void printSale(Sale saleToPrint){
         System.out.println("Cashier: " + saleToPrint.getCashier());
         System.out.println("Date: " + saleToPrint.getTimeOfSale());
+        System.out.println("Your items:");
         printScannedItems(saleToPrint);
         System.out.println("Total: " + saleToPrint.getTotalPrice().getValue() + " credits, Total VAT: " + saleToPrint.getTotalVATPrice().getValue() + " credits");
     }

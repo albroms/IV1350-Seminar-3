@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.0
- * Written 2020-05-26
+ * @version 1.1
+ * Written 2020-05-27
  *
  * This class represents a system that communicates with a database for an accounting system that keeps
  * track of sales records.
@@ -28,6 +28,5 @@ public class AccountingDBHandler {
      */
     public void storeSale(Receipt completedSale){
         this.completedSales.add(completedSale);
-        System.out.println("Completed sale added to accounting system.");
     }
 }

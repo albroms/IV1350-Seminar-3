@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.1
- * Written 2020-05-26
+ * @version 1.2
+ * Written 2020-05-27
  */
 public class Sale {
     private final String cashier;
@@ -20,7 +20,7 @@ public class Sale {
      */
     public Sale(String cashier){
         this.cashier = cashier;
-        this.scannedItems = new ArrayList<SingleItem>();
+        this.scannedItems = new ArrayList<>();
         this.totalPrice = new Amount(0.0);
     }
 
@@ -34,18 +34,13 @@ public class Sale {
      */
     public void addItem(ItemDTO item, int quantity){
         if(itemAlreadyAdded(item)){
-            //update quantity only
             updateSingleItem(item, quantity);
         }
         else{
-            //create new SingleItem to add to list of scanned items
             SingleItem newItem = new SingleItem(item, quantity);
             this.scannedItems.add(newItem);
         }
         updateTotalPrice();
-        double runningTotal = this.getTotalPrice().getValue();
-        System.out.println("Scanned " + quantity + " " + item.getItemName());
-        System.out.println("Running total: " + runningTotal + " credits.");
     }
 
     /**
@@ -57,9 +52,7 @@ public class Sale {
         double discountToApply = discount.getDiscountFactor();
         double priceAfterDiscount = priceBeforeDiscount * discountToApply;
 
-        Amount roundedPrice = new Amount(priceAfterDiscount).roundOff(priceAfterDiscount);
-
-        this.totalPrice = roundedPrice;
+        this.totalPrice = new Amount(priceAfterDiscount).roundOff(priceAfterDiscount);
     }
 
     /**

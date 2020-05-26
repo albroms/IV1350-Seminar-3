@@ -5,8 +5,8 @@ import se.kth.iv1350.integration.ExternalSystemHandler;
 import se.kth.iv1350.model.*;
 /**
  * @author Alexander Broms
- * @version 1.1
- * Written 2020-05-26
+ * @version 1.2
+ * Written 2020-05-27
  *
  * The controller class which communicates with the classes in the model and the {@link ExternalSystemHandler} that
  * handles things concerning the external systems.
@@ -30,7 +30,6 @@ public class Controller {
      */
     public void startSale(String cashierName){
         this.currentSale = new Sale(cashierName);
-
     }
 
     /**
@@ -38,16 +37,16 @@ public class Controller {
      * If a valid item was returned to the controller, the controller then instructs its sale to
      * add that item to itself.
      * @param itemID item ID given
-     * @param quantity quantity given
+     * @param quantity quantity give
+     * @return a SingleItem object to be used by the view
      */
-    public  void scanItem(int itemID, int quantity){
+    public SingleItem scanItem(int itemID, int quantity){
         SingleItem foundItem = this.externalSystems.findItem(itemID);
-        if(foundItem == null){
-            System.out.println("The controller did not receive a valid item.");
-        }
-        else {
+        if(foundItem != null){
             this.currentSale.addItem(foundItem.getItemDTO(), quantity);
+            return new SingleItem(foundItem.getItemDTO(), quantity);
         }
+        return null;
     }
 
     /**
@@ -55,14 +54,13 @@ public class Controller {
      * the provided customer ID.
      * @param customerID the provided customer ID number.
      */
-    public void requestDiscount(int customerID){
+    public Discount requestDiscount(int customerID){
         Discount validDiscount = this.externalSystems.findDiscount(customerID);
-        if(validDiscount == null){
-            System.out.println("Controller found no valid discount.");
-        }
-        else {
+        if(validDiscount != null){
             this.currentSale.applyDiscount(validDiscount);
+            return validDiscount;
         }
+        return null;
     }
 
     /**
@@ -91,5 +89,23 @@ public class Controller {
     }
     private void finalizeSale(Receipt receipt){
         externalSystems.finalizeSale(receipt);
+    }
+
+    //getters
+
+    /**
+     * Returns the current sale the controller has a reference to.
+     * @return the current sale object
+     */
+    public Sale getCurrentSale(){
+        return currentSale;
+    }
+
+    /**
+     * Returns the {@link Register} that the controller has a reference to.
+     * @return the register
+     */
+    public Register getRegister(){
+        return register;
     }
 }
