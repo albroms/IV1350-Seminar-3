@@ -38,7 +38,7 @@ public class Controller {
      * add that item to itself.
      * @param itemID item ID given
      * @param quantity quantity give
-     * @return a SingleItem object to be used by the view
+     * @return a SingleItem object to be used by the view, null if item not found.
      */
     public SingleItem scanItem(int itemID, int quantity){
         SingleItem foundItem = this.externalSystems.findItem(itemID);
@@ -64,7 +64,8 @@ public class Controller {
     }
 
     /**
-     * Controller ends the sale and prepares a {@link Register} to be used when paying.
+     * Controller instantiates a {@link Register} and returns the total price of the sale.
+     * @return the total price of the sale.
      */
     public Amount endSale(){
         this.register = new Register(1000);

@@ -7,13 +7,13 @@ import se.kth.iv1350.model.SingleItem;
 
 /**
  * @author Alexander Broms
- * @version 1.1
+ * @version 1.2
  * Written 2020-05-27
  *
  * A very simple representation of the view which sends requests (method calls) to a {@link Controller}.
  */
 public class View {
-    private Controller controller;
+    private final Controller controller;
 
     /**
      * Constructor for the {@link View}.
@@ -27,7 +27,7 @@ public class View {
     /**
      * Begin transaction by welcoming the customer, giving the customer the name of the cashier,
      * and requesting that items are scanned.
-     * @param cashierName
+     * @param cashierName the name of the cashier handling the transaction.
      */
     public void startNewSale(String cashierName){
         System.out.println("Sale started.\n");

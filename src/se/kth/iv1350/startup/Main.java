@@ -26,6 +26,6 @@ public class Main {
         view.scanItem(4, 1); //scan another item
         view.requestDiscount(123);
         view.endSale();
-        view.enterPayment(new Amount(5)); //user pays
+        view.enterPayment(new Amount(20)); //user pays
     }
 }
