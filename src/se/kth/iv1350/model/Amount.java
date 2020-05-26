@@ -52,7 +52,7 @@ public class Amount {
      * Same as the other {@code setAmount} method, but takes an integer instead.
      * @param amount the amount we wish to assign to the {@link Amount} instance.
      */
-    public void setAmount(int amount){
+    public void setValue(int amount){
         this.value = amount;
     }
 

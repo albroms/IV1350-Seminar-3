@@ -13,19 +13,17 @@ import se.kth.iv1350.view.View;
  */
 public class Main {
     /**
-     * The main method
+     * The main method. Only the view needs to be called from the main method.
      * @param args potential arguments given when executing the program.
      */
     public static void main(String[] args) {
         ExternalSystemHandler externalSystems = new ExternalSystemHandler();
         Controller controller = new Controller(externalSystems);
         View view = new View(controller);
-        view.startNewSale("Jerry"); //sale started
+        view.startNewSale("Rick"); //sale started
         view.scanItem(1, 1); //first item scanned
         view.scanItem(1, 2); //scan same item again
         view.scanItem(4, 1); //scan another item
-        //view.scanItem(123, 1); //invalid ID
-        //view.requestDiscount(1111); //invalid customerID
         view.requestDiscount(123);
         view.endSale();
         view.enterPayment(new Amount(20)); //user pays

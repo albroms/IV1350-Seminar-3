@@ -51,6 +51,14 @@ public class InventoryDBHandler {
     }
 
     /**
+     * Return the entire inventory list.
+     * @return the {@link ArrayList} that makes up the inventory.
+     */
+    public ArrayList<SingleItem> getInventory(){
+        return inventory;
+    }
+
+    /**
      * Update the inventory using the given receipt
      * @param receipt the receipt containing the information needed to update the inventory.
      */
