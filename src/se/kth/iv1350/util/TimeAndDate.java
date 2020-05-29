@@ -1,4 +1,4 @@
-package se.kth.iv1350.model;
+package se.kth.iv1350.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

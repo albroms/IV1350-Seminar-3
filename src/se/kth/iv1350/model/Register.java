@@ -53,11 +53,10 @@ public class Register {
      * @return the change to be given to the customer
      */
     public Amount pay(Amount amountReceived, Sale saleToPayFor){
-        Amount received = amountReceived;
         Amount amountDue = saleToPayFor.getTotalPrice();
-        Amount changeDue = calculateChange(received, amountDue);
+        Amount changeDue = calculateChange(amountReceived, amountDue);
 
-        addAmount(received);
+        addAmount(amountReceived);
         removeAmount(changeDue);
 
         return changeDue;

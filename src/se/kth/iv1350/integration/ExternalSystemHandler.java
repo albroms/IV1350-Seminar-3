@@ -1,13 +1,15 @@
 package se.kth.iv1350.integration;
 
+import se.kth.iv1350.exceptions.DatabaseFailureException;
+import se.kth.iv1350.exceptions.ItemNotFoundException;
 import se.kth.iv1350.model.Discount;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.SingleItem;
 
 /**
  * @author Alexander Broms
- * @version 1.1
- * Written 2020-05-26
+ * @version 2.0
+ * Written 2020-05-29
  *
  * This class is responsible for calling the external systems.
  */
@@ -32,8 +34,13 @@ public class ExternalSystemHandler {
      * Instructs the inventory system to produce a {@link SingleItem} that has a matching item ID.
      * @param itemID the item ID used to find a particular item.
      * @return the relevant item, null if no matching item was found.
+     * @throws ItemNotFoundException if no item with the given parameter can be found in the inventory.
+     * @throws DatabaseFailureException if the class cannot establish a connection to the database.
      */
-    public SingleItem findItem(int itemID){
+    public SingleItem findItem(int itemID) throws ItemNotFoundException, DatabaseFailureException {
+        if (itemID == 404) {
+            throw new DatabaseFailureException();
+        }
         return inventorySystem.findItem(itemID);
     }
 

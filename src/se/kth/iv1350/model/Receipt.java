@@ -11,7 +11,7 @@ package se.kth.iv1350.model;
 public class Receipt {
     private final Sale sale;
     private final String storeName = "My Store";
-    private final String storeAddress = "123 Fake St. 12345 NYC, NY, USA";
+    private final String storeAddress = "123 Fake St. NYC, NY 12345, USA";
     private final Amount amountPaid;
     private final Amount change;
 
@@ -20,7 +20,7 @@ public class Receipt {
      * Receipt constructor
      * @param completedSale the sale which the receipt is for.
      */
-    public Receipt(Sale completedSale, Amount paid, Amount changeGiven){
+    Receipt(Sale completedSale, Amount paid, Amount changeGiven){
         this.sale = completedSale;
         this.amountPaid = paid;
         this.change = changeGiven;

@@ -3,16 +3,21 @@ package se.kth.iv1350.integration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.kth.iv1350.exceptions.ItemNotFoundException;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.Sale;
 import se.kth.iv1350.model.SingleItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the non-trivial methods in InventoryDBHandler.java
+ * testNonExistentItem has been modified from Seminar 3 to compile and pass
+ * with the exception handling for Seminar 4.
+ */
 class InventoryDBHandlerTest {
     InventoryDBHandler inventoryDBHandler;
     ArrayList<SingleItem> inventory;
@@ -30,7 +35,7 @@ class InventoryDBHandlerTest {
     }
 
     @Test
-    void testFindItem() {
+    void testFindItem() throws ItemNotFoundException {
         //SingleItem at index 0 will have itemID 1
         SingleItem expResult = inventory.get(0);
         SingleItem result = inventoryDBHandler.findItem(1);
@@ -38,10 +43,16 @@ class InventoryDBHandlerTest {
     }
 
     @Test
-    void testNonExistentItem(){
+    void testNonExistentItem() {
         int invalidID = 999;
-        SingleItem expResult = null;
-        SingleItem result = inventoryDBHandler.findItem(invalidID);
+        String expResult = "Item not found.";
+        String result = null;
+        try{
+            inventoryDBHandler.findItem(invalidID);
+        }
+        catch (ItemNotFoundException e){
+            result = "Item not found.";
+        }
         assertEquals(expResult, result, "The item found was not null.");
     }
 

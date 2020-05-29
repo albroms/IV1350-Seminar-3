@@ -1,6 +1,8 @@
 package se.kth.iv1350.model;
 
 import se.kth.iv1350.integration.ItemDTO;
+import se.kth.iv1350.util.TimeAndDate;
+
 import java.util.ArrayList;
 
 /**

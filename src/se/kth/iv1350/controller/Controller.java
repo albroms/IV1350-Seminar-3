@@ -1,11 +1,12 @@
 package se.kth.iv1350.controller;
 
+import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.integration.ExternalSystemHandler;
-
+import se.kth.iv1350.util.logger.ExceptionLogger;
 import se.kth.iv1350.model.*;
 /**
  * @author Alexander Broms
- * @version 1.2
+ * @version 2.0
  * Written 2020-05-27
  *
  * The controller class which communicates with the classes in the model and the {@link ExternalSystemHandler} that
@@ -15,6 +16,7 @@ public class Controller {
     private Sale currentSale;
     private Register register;
     private final ExternalSystemHandler externalSystems;
+    private ExceptionLogger errorLogger = new ExceptionLogger();
 
     /**
      * Constructor for controller that takes a parameter for the external systems.
@@ -39,14 +41,19 @@ public class Controller {
      * @param itemID item ID given
      * @param quantity quantity give
      * @return a SingleItem object to be used by the view, null if item not found.
+     * @throws OperationFailedException A more general exception for when the scanning operation fails.
      */
-    public SingleItem scanItem(int itemID, int quantity){
-        SingleItem foundItem = this.externalSystems.findItem(itemID);
-        if(foundItem != null){
+    public SingleItem scanItem(int itemID, int quantity) throws OperationFailedException {
+        try{
+            SingleItem foundItem = this.externalSystems.findItem(itemID);
             this.currentSale.addItem(foundItem.getItemDTO(), quantity);
             return new SingleItem(foundItem.getItemDTO(), quantity);
         }
-        return null;
+        catch (ItemNotFoundException | DatabaseFailureException e){
+            errorLogger.logExceptionMessage(e);
+            throw new OperationFailedException(e);
+        }
+
     }
 
     /**
