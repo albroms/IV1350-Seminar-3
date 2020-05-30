@@ -53,7 +53,7 @@ class InventoryDBHandlerTest {
         catch (ItemNotFoundException e){
             result = "Item not found.";
         }
-        assertEquals(expResult, result, "The item found was not null.");
+        assertEquals(expResult, result, "Expected " + expResult + " but got " + result + ".");
     }
 
     @Test
