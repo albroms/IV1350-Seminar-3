@@ -15,14 +15,14 @@ import java.util.ArrayList;
  * This class represents a system that communicates with a database for an inventory of items.
  * Since the data layer was omitted, the class contains an {@link ArrayList} representing the database.
  */
-class InventoryDBHandler {
+public class InventoryDBHandler {
     private final ArrayList<SingleItem> inventory;
 
     /**
      * This constructor creates an instance of the class with a small inventory we can use
      * when there is no actual database to call.
      */
-    InventoryDBHandler(){
+    public InventoryDBHandler(){
         ItemDTO firstItem = new ItemDTO("Flaming Hot Cheese Snack", new Amount(1.99), "200g bag of spicy cheese snack.", 1, 0.25);
         ItemDTO secondItem = new ItemDTO("Dried Shrimp", new Amount(5.99), "200g bag of dried shrimp", 2, 0.25);
         ItemDTO thirdItem = new ItemDTO("Whole Fat Milk", new Amount(3), "1 liter carton of whole fat milk", 3, 0.12);
@@ -41,7 +41,7 @@ class InventoryDBHandler {
      * @return An item that has a matching {@code itemID}, null if no match was found.
      * @throws ItemNotFoundException when an item with the given parameter cannot be found
      */
-    SingleItem findItem(int itemID) throws ItemNotFoundException{
+    public SingleItem findItem(int itemID) throws ItemNotFoundException{
         for(SingleItem item : inventory){
             if(itemIDsMatch(item.getItemID(), itemID)){
                 return item;
@@ -62,7 +62,7 @@ class InventoryDBHandler {
      * Update the inventory using the given receipt
      * @param receipt the receipt containing the information needed to update the inventory.
      */
-    void updateInventory(Receipt receipt){
+    public void updateInventory(Receipt receipt){
         ArrayList<SingleItem> scannedItems = receipt.getSale().getScannedItems();
         for(SingleItem item : inventory){
             for(SingleItem scannedItem : scannedItems){

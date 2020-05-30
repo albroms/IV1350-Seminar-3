@@ -1,9 +1,10 @@
-package se.kth.iv1350.integration;
+package se.kth.iv1350.tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.exceptions.ItemNotFoundException;
+import se.kth.iv1350.integration.InventoryDBHandler;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.Sale;
@@ -19,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * with the exception handling for Seminar 4.
  */
 class InventoryDBHandlerTest {
-    InventoryDBHandler inventoryDBHandler;
-    ArrayList<SingleItem> inventory;
+    private InventoryDBHandler inventoryDBHandler;
+    private ArrayList<SingleItem> inventory;
 
     @BeforeEach
     void setUp() {

@@ -1,8 +1,9 @@
-package se.kth.iv1350.model;
+package se.kth.iv1350.tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.kth.iv1350.model.Amount;
 
 import static org.junit.jupiter.api.Assertions.*;
 

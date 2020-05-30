@@ -5,6 +5,7 @@ package se.kth.iv1350.model;
  * @version 1.2
  * Written 2020-05-27
  *
+ * FIXME: 5/31/2020 Could this class be a class that notifies an observer about revenue(new money in register)?
  * The class representing a cash register. When instantiated it is loaded with an amount of money.
  * The public interface for this class include the constructor, the {@code pay} method, and the getter
  * which returns the {@link Amount} of money currently in the register.

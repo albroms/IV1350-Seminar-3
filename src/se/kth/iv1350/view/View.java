@@ -24,9 +24,9 @@ public class View {
      * Constructor for the {@link View}.
      * @param controller the controller that the view interacts with.
      */
-    public View(Controller controller){
+    public View(Controller controller, Scanner input){
         this.controller = controller;
-        this.in = new Scanner(System.in);
+        this.in = input;
     }
 
 
@@ -48,9 +48,6 @@ public class View {
             view.scanItem(77, 1); //scan invalid item
             view.scanItem(404, 1); //item identifier that should cause a DatabaseFailureException to be thrown
              */
-            requestDiscount();
-            endSale();
-            enterPayment();
         }
         catch (UnknownAnswerException e){
             System.out.println("I'm sorry, I can't understand what you're trying to say.");
@@ -61,11 +58,11 @@ public class View {
      * Tells controller that an item will be scanned.
      * @throws UnknownAnswerException when the user input cannot be understood by the program
      */
-    private void scanItem() throws UnknownAnswerException {
+    public void scanItem() throws UnknownAnswerException {
         int itemID;
         int quantity;
         String answer;
-        Scanner in = new Scanner(System.in);
+        //Scanner in = new Scanner(System.in);
         try{
             System.out.println("Please enter the item identifier:");
             itemID = in.nextInt();
@@ -81,6 +78,7 @@ public class View {
             }
             else if(answer.equals("no") || answer.equals("n")){
                 System.out.println("Alright, let's carry on then.");
+                requestDiscount();
             }
             else{
                 throw new UnknownAnswerException(answer);
@@ -115,6 +113,7 @@ public class View {
         else {
             System.out.println("Could not find a discount for customer with ID: " + customerID);
         }
+        endSale();
     }
 
     /**
@@ -123,6 +122,7 @@ public class View {
     private void endSale(){
         Amount priceToPay = controller.endSale();
         System.out.println("\nSale ended. Your total is " + priceToPay.getValue() + " credits.");
+        enterPayment();
     }
 
     /**

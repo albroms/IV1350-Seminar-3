@@ -4,6 +4,8 @@ import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.ExternalSystemHandler;
 import se.kth.iv1350.view.View;
 
+import java.util.Scanner;
+
 /**
  * @author Alexander Broms
  * @version 2.0
@@ -19,7 +21,7 @@ public class Main {
     public static void main(String[] args){
         ExternalSystemHandler externalSystems = new ExternalSystemHandler();
         Controller controller = new Controller(externalSystems);
-        View view = new View(controller);
+        View view = new View(controller, new Scanner(System.in));
         view.startNewSale("Pickle Rick");
     }
 }
