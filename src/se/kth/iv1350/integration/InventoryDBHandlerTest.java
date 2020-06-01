@@ -20,19 +20,17 @@ class InventoryDBHandlerTest {
     @BeforeEach
     void setUp() {
         inventoryDBHandler = new InventoryDBHandler();
-        inventory = inventoryDBHandler.getInventory();
     }
 
     @AfterEach
     void tearDown() {
         inventoryDBHandler = null;
-        inventory = null;
     }
 
     @Test
     void testFindItem() {
         //SingleItem at index 0 will have itemID 1
-        SingleItem expResult = inventory.get(0);
+        SingleItem expResult = inventoryDBHandler.getInventory().get(0);
         SingleItem result = inventoryDBHandler.findItem(1);
         assertEquals(expResult, result, "Method did not fetch correct SingleItem.");
     }

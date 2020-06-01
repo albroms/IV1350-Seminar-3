@@ -33,6 +33,13 @@ public class View {
         System.out.println("Sale started.\n");
         System.out.println("Welcome! My name is " + cashierName + ". Please scan your items.\n");
         controller.startSale(cashierName);
+
+        scanItem(1, 1); //first item scanned
+        scanItem(1, 2); //scan same item again
+        scanItem(4, 1); //scan another item
+        requestDiscount(123);
+        endSale();
+        enterPayment(new Amount(20)); //user pays
     }
 
     /**
@@ -41,7 +48,7 @@ public class View {
      * @param itemID identification number for item we are trying to scan.
      * @param quantity number of items with {@code itemID} we wish to scan.
      */
-    public void scanItem(int itemID, int quantity){
+    private void scanItem(int itemID, int quantity){
 
         SingleItem scannedItem = controller.scanItem(itemID, quantity);
         System.out.println("Scanned " + quantity + " " + scannedItem.getItemDTO().getItemName());
@@ -52,7 +59,7 @@ public class View {
      * Request a discount for a customer with a given {@code customerID}.
      * @param customerID the ID number provided by the customer.
      */
-    public void requestDiscount(int customerID){
+    private void requestDiscount(int customerID){
         System.out.println("\nDiscount requested with customer ID: " + customerID);
         Discount foundDiscount = controller.requestDiscount(customerID);
         if(foundDiscount != null){
@@ -66,7 +73,7 @@ public class View {
     /**
      * View tells controller to end its current sale.
      */
-    public void endSale(){
+    private void endSale(){
         Amount priceToPay = controller.endSale();
         System.out.println("\nSale ended. Your total is " + priceToPay.getValue() + " credits.");
     }
@@ -75,7 +82,7 @@ public class View {
      * Sends an {@link Amount} to the controller to pay for a sale.
      * @param payment the {@link Amount} being used to pay.
      */
-    public void enterPayment(Amount payment){
+    private void enterPayment(Amount payment){
         System.out.println("Entered payment: " + payment.getValue());
         Amount change = controller.enterPayment(payment);
         if(change.getValue() >= 0) {
