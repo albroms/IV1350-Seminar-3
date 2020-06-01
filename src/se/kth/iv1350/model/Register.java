@@ -1,11 +1,12 @@
 package se.kth.iv1350.model;
 
+import java.util.ArrayList;
+
 /**
  * @author Alexander Broms
- * @version 1.2
- * Written 2020-05-27
+ * @version 2.0
+ * Written 2020-06-01
  *
- * FIXME: 5/31/2020 Could this class be a class that notifies an observer about revenue(new money in register)?
  * The class representing a cash register. When instantiated it is loaded with an amount of money.
  * The public interface for this class include the constructor, the {@code pay} method, and the getter
  * which returns the {@link Amount} of money currently in the register.
@@ -13,6 +14,8 @@ package se.kth.iv1350.model;
 public class Register {
     private Amount moneyInRegister;
     private final Amount moneyOriginallyInRegister;
+    private ArrayList<RevenueObserver> revenueObservers;
+    private Amount totalRevenue;
 
     /**
      * Create an instance of Register loaded with an amount of money.
@@ -21,6 +24,16 @@ public class Register {
     public Register(double amount){
         this.moneyInRegister = new Amount(amount);
         this.moneyOriginallyInRegister = new Amount(amount);
+        revenueObservers = new ArrayList<>();
+    }
+
+    /**
+     * Create an instance of Register pre-loaded with 1000 credits.
+     */
+    public Register(){
+        this.moneyInRegister = new Amount(1000);
+        this.moneyOriginallyInRegister = new Amount(moneyInRegister.getValue());
+        revenueObservers = new ArrayList<>();
     }
 
     /**
@@ -51,20 +64,35 @@ public class Register {
 
         addAmount(amountReceived);
         removeAmount(changeDue);
-        //notifyObservers();
+        this.totalRevenue = calculateChange(moneyInRegister, moneyOriginallyInRegister);
+        notifyObservers();
         return changeDue;
     }
 
     /**
-     *
+     * Add the specified observer to the list of observers that will
+     * be notified when the total revenue changes.
+     * @param revObs add a specified {@link RevenueObserver} to the Register's list of revenue observers.
      */
-    /*
-    public void addObserver(revenueObserver revenueObserver){
-
+    public void addRevenueObserver(RevenueObserver revObs){
+        revenueObservers.add(revObs);
     }
-    */
+
     /**
-     * Private methods
+     * All observers in the given list are added to {@link Register}'s list of observers.
+     * Duplicates are ignored.
+     * @param observers the list of revenue observers
+     */
+    public void addRevenueObservers(ArrayList<RevenueObserver> observers){
+        for(RevenueObserver obs : observers){
+            if(!revenueObservers.contains(obs)){
+                addRevenueObserver(obs);
+            }
+        }
+    }
+
+    /**
+     * Private methods below
      */
     private void removeAmount(Amount amountToRemove){
         if(amountToRemove.getValue() > 0){
@@ -82,9 +110,9 @@ public class Register {
      * This method can also be used to calculate revenue by having the <code>received</code> parameter be
      * the amount of money currently in the register and the <code>due</code> parameter be the amount of
      * money that was in the register when the {@link Register} was instantiated.
-     * @param received
-     * @param due
-     * @return
+     * @param received money received
+     * @param due money subtracted from received
+     * @return change or other difference between the values in the given parameters
      */
     private Amount calculateChange(Amount received, Amount due){
         double change = received.getValue() - due.getValue();
@@ -92,8 +120,10 @@ public class Register {
         return changeAmount.roundOff(change);
     }
 
-    /*private void notifyObservers(){
-        for(Reve)
+
+    private void notifyObservers(){
+        for(RevenueObserver obs : revenueObservers){
+            obs.newTotalRevenue(totalRevenue);
+        }
     }
-     */
 }

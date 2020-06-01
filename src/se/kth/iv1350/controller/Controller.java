@@ -4,10 +4,13 @@ import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.integration.ExternalSystemHandler;
 import se.kth.iv1350.util.logger.ExceptionLogger;
 import se.kth.iv1350.model.*;
+
+import java.util.ArrayList;
+
 /**
  * @author Alexander Broms
- * @version 2.0
- * Written 2020-05-27
+ * @version 2.1
+ * Written 2020-06-01
  *
  * The controller class which communicates with the classes in the model and the {@link ExternalSystemHandler} that
  * handles things concerning the external systems.
@@ -16,7 +19,8 @@ public class Controller {
     private Sale currentSale;
     private Register register;
     private final ExternalSystemHandler externalSystems;
-    private ExceptionLogger errorLogger = new ExceptionLogger();
+    private ExceptionLogger errorLogger;
+    private ArrayList<RevenueObserver> revenueObservers;
 
     /**
      * Constructor for controller that takes a parameter for the external systems.
@@ -24,6 +28,29 @@ public class Controller {
      */
     public Controller(ExternalSystemHandler extSys){
         this.externalSystems = extSys;
+        this.errorLogger = new ExceptionLogger();
+        this.register = new Register();
+        this.revenueObservers = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for controller that takes a parameter for the external systems and a register with a starting
+     * amount that may be different from the default of 1000.
+     * @param extSys the external system handler
+     * @param register the register to be associated with the controller.
+     */
+    public Controller(ExternalSystemHandler extSys, Register register){
+        this.externalSystems = extSys;
+        this.register = register;
+    }
+
+    /**
+     * Add the specified observer to the list of observers that will
+     * be notified when the total revenue changes.
+     * @param revObs a revenue observer to be added
+     */
+    public void addRevenueObserver(RevenueObserver revObs){
+        revenueObservers.add(revObs);
     }
 
     /**
@@ -32,6 +59,7 @@ public class Controller {
      */
     public void startSale(String cashierName){
         this.currentSale = new Sale(cashierName);
+        register.addRevenueObservers(revenueObservers);
     }
 
     /**
@@ -71,23 +99,10 @@ public class Controller {
     }
 
     /**
-     * Controller instantiates a {@link Register} and returns the total price of the sale.
-     * @param register the {@link Register} to be used when completing the sale.
+     * Controller ends the sale by retrieving the total price of the sale.
      * @return the total price of the sale.
      */
-    public Amount endSale(Register register){
-        this.register = register;
-        return this.currentSale.getTotalPrice();
-
-    }
-
-    /**
-     * Similar to endSale that takes a {@link Register} parameter, but since no register is provided,
-     * the controller instantiates a register with an {@link Amount} of 1000 credits in it from the start.
-     * @return
-     */
     public Amount endSale(){
-        this.register = new Register(1000);
         return this.currentSale.getTotalPrice();
     }
 

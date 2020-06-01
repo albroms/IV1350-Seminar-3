@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * @author Alexander Broms
  * @version 2.1
- * Written 2020-05-29
+ * Written 2020-06-01
  *
  * A very simple representation of the view which sends requests (method calls) to a {@link Controller}.
  * Now featuring error handling for Seminar 4.
@@ -27,27 +27,39 @@ public class View {
     public View(Controller controller, Scanner input){
         this.controller = controller;
         this.in = input;
+        controller.addRevenueObserver(new TotalRevenueView());
     }
 
 
     /**
-     * Begin transaction by welcoming the customer, giving the customer the name of the cashier,
-     * and requesting that items are scanned.
-     * @param cashierName the name of the cashier handling the transaction.
+     * Start the sale process with the name of the cashier at the register.
+     * @param cashierName the name of the cashier manning the register.
      */
-    public void startNewSale(String cashierName){
+    public void start(String cashierName) throws UnknownAnswerException {
+        startNewSale(cashierName);
+        System.out.println("Would you like to start another sale? y/n");
+        String answer = in.next();
+        if(isValidAnswer(answer)){
+            if (answerIsYes(answer)){
+                start(cashierName);
+            }
+            else {
+                System.out.println("Okay. Closing the Point of Sale. Goodbye!");
+                in.close();
+            }
+        }
+        else {
+            throw new UnknownAnswerException(answer);
+        }
+
+    }
+
+    private void startNewSale(String cashierName){
         System.out.println("Sale started.\n");
         System.out.println("Welcome! I'm " + cashierName + ". Please scan your items.\n");
         controller.startSale(cashierName);
         try{
             scanItem();
-            /*
-            view.scanItem(1, 1); //first item scanned
-            view.scanItem(1, 2); //scan same item again
-            view.scanItem(4, 1); //scan another item
-            view.scanItem(77, 1); //scan invalid item
-            view.scanItem(404, 1); //item identifier that should cause a DatabaseFailureException to be thrown
-             */
         }
         catch (UnknownAnswerException e){
             System.out.println("I'm sorry, I can't understand what you're trying to say.");
@@ -62,7 +74,6 @@ public class View {
         int itemID;
         int quantity;
         String answer;
-        //Scanner in = new Scanner(System.in);
         try{
             System.out.println("Please enter the item identifier:");
             itemID = in.nextInt();
@@ -73,12 +84,14 @@ public class View {
             System.out.println("Running total: " + controller.getCurrentSale().getTotalPrice().getValue());
             System.out.println("Would you like to scan another item? y/n");
             answer = in.next();
-            if(answer.equals("yes") || answer.equals("y")){
-                scanItem();
-            }
-            else if(answer.equals("no") || answer.equals("n")){
-                System.out.println("Alright, let's carry on then.");
-                requestDiscount();
+            if(isValidAnswer(answer)){
+                if (answerIsYes(answer)) {
+                    scanItem();
+                } else {
+                    System.out.println("Alright, let's carry on then.");
+                    requestDiscount();
+                    endSale();
+                }
             }
             else{
                 throw new UnknownAnswerException(answer);
@@ -101,7 +114,7 @@ public class View {
      * Request a discount for a customer with a given customer ID.
      */
     private void requestDiscount(){
-        Scanner in = new Scanner(System.in);
+        //Scanner in = new Scanner(System.in);
         System.out.println("\nIf you're eligible for a discount, please enter your customer ID number now:");
         System.out.println("Enter '0' if you are ineligible for a discount.");
         int customerID = in.nextInt();
@@ -113,7 +126,6 @@ public class View {
         else {
             System.out.println("Could not find a discount for customer with ID: " + customerID);
         }
-        endSale();
     }
 
     /**
@@ -134,13 +146,19 @@ public class View {
         System.out.println("Entered payment: " + payment.getValue());
         Amount change = controller.enterPayment(payment);
         if(change.getValue() >= 0) {
-            System.out.println("\nPayment successful. Your change is " + change.getValue() + " credits.");
-            System.out.println("Sales log and inventory have been updated.");
+            System.out.println("\nPayment successful. Your change is " + change.getValue() + " credits. Thank You!");
+            //System.out.println("Sales log and inventory have been updated."); //remove
         }
         else {
             System.out.println("\nPayment unsuccessful. You are " + (change.getValue() * -1) + " credits short.");
         }
-        System.out.println("There is now " + controller.getRegister().getMoneyInRegister().getValue() + " credits in the cash register.");
-        in.close();
+        //System.out.println("There is now " + controller.getRegister().getMoneyInRegister().getValue() + " credits in the cash register."); //remove
+    }
+
+    private boolean isValidAnswer(String answer){
+        return answer.equals("yes") || answer.equals("y") || answer.equals("no") || answer.equals("n");
+    }
+    private boolean answerIsYes(String answer){
+        return answer.equals("yes") || answer.equals("y");
     }
 }

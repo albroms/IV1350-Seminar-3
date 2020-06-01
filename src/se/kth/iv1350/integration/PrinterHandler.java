@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 /**
  * @author Alexander Broms
- * @version 1.2
- * Written 2020-05-29
+ * @version 1.3
+ * Written 2020-06-01
  *
  * Class intended for communication with a printer. Since there is no printer to communicate with.
  * The functionality has been included in this class.
@@ -20,12 +20,13 @@ class PrinterHandler {
      * @param receipt the object containing the relevant data for the printer.
      */
     void printReceipt(Receipt receipt){
-        System.out.println("\nYour receipt:");
+        System.out.println("\n--------------Your receipt--------------");
         System.out.println(receipt.getStoreName());
         System.out.println(receipt.getStoreAddress());
         printSale(receipt.getSale());
         System.out.println("Amount paid: " + receipt.getAmountPaid().getValue() + " credits");
         System.out.println("Change given: " + receipt.getChange().getValue() + " credits");
+        System.out.println("----------------------------------------");
     }
 
     private void printSale(Sale saleToPrint){
