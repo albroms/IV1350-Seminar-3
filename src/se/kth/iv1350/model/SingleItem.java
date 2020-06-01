@@ -7,6 +7,8 @@ import se.kth.iv1350.integration.ItemDTO;
  * @version 1.1
  * Written 2020-05-26
  *
+ * FIXME: allow a SingleItem to be returned as an immutable object
+ *
  * The class representing one or more items of a single type of {@link ItemDTO}.
  */
 public class SingleItem {

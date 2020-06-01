@@ -28,7 +28,7 @@ class PrinterHandler {
         System.out.println("Change given: " + receipt.getChange().getValue() + " credits");
     }
 
-    void printSale(Sale saleToPrint){
+    private void printSale(Sale saleToPrint){
         System.out.println("Cashier: " + saleToPrint.getCashier());
         System.out.println("Date: " + saleToPrint.getTimeOfSale());
         System.out.println("Your items:");
@@ -36,7 +36,7 @@ class PrinterHandler {
         System.out.println("Total: " + saleToPrint.getTotalPrice().getValue() + " credits, Total VAT: " + saleToPrint.getTotalVATPrice().getValue() + " credits");
     }
 
-    void printScannedItems(Sale saleToPrint){
+    private void printScannedItems(Sale saleToPrint){
         ArrayList<SingleItem> itemsToPrint = saleToPrint.getScannedItems();
         for(SingleItem item : itemsToPrint){
             System.out.println(

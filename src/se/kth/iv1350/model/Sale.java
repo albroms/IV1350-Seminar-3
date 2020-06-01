@@ -14,7 +14,7 @@ public class Sale {
     private final String cashier;
     private Amount totalPrice;
     private ArrayList<SingleItem> scannedItems;
-    private final String timeOfSale = new TimeAndDate().getFormattedTime();
+    private final String timeOfSale;
 
     /**
      * Constructor to create a new sale instance.
@@ -24,6 +24,7 @@ public class Sale {
         this.cashier = cashier;
         this.scannedItems = new ArrayList<>();
         this.totalPrice = new Amount(0.0);
+        this.timeOfSale = new TimeAndDate().getFormattedTime();
     }
 
     /**

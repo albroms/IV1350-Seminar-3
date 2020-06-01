@@ -12,6 +12,7 @@ package se.kth.iv1350.model;
  */
 public class Register {
     private Amount moneyInRegister;
+    private final Amount moneyOriginallyInRegister;
 
     /**
      * Create an instance of Register loaded with an amount of money.
@@ -19,22 +20,7 @@ public class Register {
      */
     public Register(double amount){
         this.moneyInRegister = new Amount(amount);
-    }
-
-    private void removeAmount(Amount amountToRemove){
-        if(amountToRemove.getValue() > 0){
-            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() - amountToRemove.getValue());
-        }
-    }
-    private void addAmount(Amount amountToAdd){
-        if(amountToAdd.getValue() > 0){
-            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() + amountToAdd.getValue());
-        }
-    }
-    private Amount calculateChange(Amount received, Amount due){
-        double change = received.getValue() - due.getValue();
-        Amount changeAmount = new Amount(change);
-        return changeAmount.roundOff(change);
+        this.moneyOriginallyInRegister = new Amount(amount);
     }
 
     /**
@@ -44,6 +30,12 @@ public class Register {
     public Amount getMoneyInRegister(){
         return moneyInRegister;
     }
+
+    /**
+     * Get the {@link Amount} that was in the register from the start.
+     * @return The {@link Amount} of money that was in the register when the register was created.
+     */
+    public Amount getMoneyOriginallyInRegister(){ return moneyOriginallyInRegister; }
 
     /**
      * Handle the payment of a given sale using the amount received by the customer.
@@ -59,7 +51,49 @@ public class Register {
 
         addAmount(amountReceived);
         removeAmount(changeDue);
-
+        //notifyObservers();
         return changeDue;
     }
+
+    /**
+     *
+     */
+    /*
+    public void addObserver(revenueObserver revenueObserver){
+
+    }
+    */
+    /**
+     * Private methods
+     */
+    private void removeAmount(Amount amountToRemove){
+        if(amountToRemove.getValue() > 0){
+            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() - amountToRemove.getValue());
+        }
+    }
+    private void addAmount(Amount amountToAdd){
+        if(amountToAdd.getValue() > 0){
+            this.moneyInRegister = new Amount(this.moneyInRegister.getValue() + amountToAdd.getValue());
+        }
+    }
+
+    /**
+     * Calculate the {@link Amount} of change to give to the customer after payment.
+     * This method can also be used to calculate revenue by having the <code>received</code> parameter be
+     * the amount of money currently in the register and the <code>due</code> parameter be the amount of
+     * money that was in the register when the {@link Register} was instantiated.
+     * @param received
+     * @param due
+     * @return
+     */
+    private Amount calculateChange(Amount received, Amount due){
+        double change = received.getValue() - due.getValue();
+        Amount changeAmount = new Amount(change);
+        return changeAmount.roundOff(change);
+    }
+
+    /*private void notifyObservers(){
+        for(Reve)
+    }
+     */
 }

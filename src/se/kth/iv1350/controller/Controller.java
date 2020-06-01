@@ -72,7 +72,19 @@ public class Controller {
 
     /**
      * Controller instantiates a {@link Register} and returns the total price of the sale.
+     * @param register the {@link Register} to be used when completing the sale.
      * @return the total price of the sale.
+     */
+    public Amount endSale(Register register){
+        this.register = register;
+        return this.currentSale.getTotalPrice();
+
+    }
+
+    /**
+     * Similar to endSale that takes a {@link Register} parameter, but since no register is provided,
+     * the controller instantiates a register with an {@link Amount} of 1000 credits in it from the start.
+     * @return
      */
     public Amount endSale(){
         this.register = new Register(1000);

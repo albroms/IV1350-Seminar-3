@@ -1,5 +1,8 @@
 package se.kth.iv1350.view;
 
+
+import se.kth.iv1350.model.RevenueObserver;
+
 /**
  * @author Alexander Broms
  * @version 0.1
@@ -8,5 +11,11 @@ package se.kth.iv1350.view;
  * The class should never call the controller or any other class, but instead be updated using the
  * Observer pattern. This view must show the total income on the user interface.
  */
-public class TotalRevenueView {
+
+public class TotalRevenueView implements RevenueObserver{
+
+    @Override
+    public void newTotalRevenue() {
+
+    }
 }
