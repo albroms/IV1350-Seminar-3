@@ -51,7 +51,7 @@ public class View {
     private void scanItem(int itemID, int quantity){
 
         SingleItem scannedItem = controller.scanItem(itemID, quantity);
-        System.out.println("Scanned " + quantity + " " + scannedItem.getItemDTO().getItemName());
+        System.out.println("Scanned " + quantity + " " + scannedItem.getItemDTO().getItemName() + ": " + scannedItem.getItemTotal().getValue());
         System.out.println("Running total: " + controller.getCurrentSale().getTotalPrice().getValue());
     }
 
