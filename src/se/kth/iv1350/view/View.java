@@ -26,7 +26,7 @@ public class View {
 
     /**
      * Begin transaction by welcoming the customer, giving the customer the name of the cashier,
-     * and requesting that items are scanned.
+     * and requesting that items are scanned. For this seminar, the scanning of items is hard-coded.
      * @param cashierName the name of the cashier handling the transaction.
      */
     public void startNewSale(String cashierName){
