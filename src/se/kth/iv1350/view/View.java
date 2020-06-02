@@ -34,12 +34,12 @@ public class View {
         System.out.println("Welcome! My name is " + cashierName + ". Please scan your items.\n");
         controller.startSale(cashierName);
 
-        scanItem(1, 1); //first item scanned
-        scanItem(1, 2); //scan same item again
-        scanItem(4, 1); //scan another item
+        scanItem(1, 1);
+        scanItem(1, 2);
+        scanItem(4, 1);
         requestDiscount(123);
         endSale();
-        enterPayment(new Amount(20)); //user pays
+        enterPayment(new Amount(20));
     }
 
     /**
