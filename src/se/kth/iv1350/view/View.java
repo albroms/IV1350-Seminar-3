@@ -80,7 +80,7 @@ public class View {
             System.out.println("Please enter the item quantity:");
             quantity = in.nextInt();
             SingleItem scannedItem = controller.scanItem(itemID, quantity);
-            System.out.println("Scanned " + quantity + " " + scannedItem.getItemDTO().getItemName());
+            System.out.println("Scanned " + quantity + " " + scannedItem.getItemDTO().getItemName() + ": " + scannedItem.getItemTotal().getValue());
             System.out.println("Running total: " + controller.getCurrentSale().getTotalPrice().getValue());
             System.out.println("Would you like to scan another item? y/n");
             answer = in.next();
