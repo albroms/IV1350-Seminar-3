@@ -5,6 +5,7 @@ import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Discount;
 import se.kth.iv1350.model.SingleItem;
+import se.kth.iv1350.util.logger.ExceptionLogger;
 
 import java.util.Scanner;
 
@@ -63,6 +64,8 @@ public class View {
         }
         catch (UnknownAnswerException e){
             System.out.println("I'm sorry, I can't understand what you're trying to say.");
+            ExceptionLogger errLogger = controller.getErrorLogger();
+            errLogger.logExceptionMessage(e);
         }
     }
 

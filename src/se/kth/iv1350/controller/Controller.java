@@ -143,4 +143,10 @@ public class Controller {
     public Register getRegister(){
         return register;
     }
+
+    /**
+     * Return the {@link ExceptionLogger} of the controller
+     * @return the exception logger
+     */
+    public ExceptionLogger getErrorLogger(){ return errorLogger; }
 }
