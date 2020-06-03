@@ -123,7 +123,8 @@ public class Register {
 
     private void notifyObservers(){
         for(RevenueObserver obs : revenueObservers){
-            obs.newTotalRevenue(totalRevenue);
+            final Amount newTotalRevenue = totalRevenue;
+            obs.newTotalRevenue(newTotalRevenue);
         }
     }
 }

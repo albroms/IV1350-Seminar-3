@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 /**
  * @author Alexander Broms
- * @version 2.1
- * Written 2020-06-01
+ * @version 2.2
+ * Written 2020-06-03
  *
  * A very simple representation of the view which sends requests (method calls) to a {@link Controller}.
  * Now featuring error handling for Seminar 4.

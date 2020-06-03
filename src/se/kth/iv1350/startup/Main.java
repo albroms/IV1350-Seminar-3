@@ -3,7 +3,6 @@ package se.kth.iv1350.startup;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.exceptions.UnknownAnswerException;
 import se.kth.iv1350.integration.ExternalSystemHandler;
-import se.kth.iv1350.model.Register;
 import se.kth.iv1350.view.View;
 
 import java.util.Scanner;
